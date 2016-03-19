@@ -5,10 +5,10 @@ package pt.mystuff.decision.core;
  * navigating on a graph of nodes, this is the function that jumps out from the
  * current node
  * 
- * @author Márcio Neves
+ * @author MÃ¡rcio Neves
  * 
  * @param <CONTEXT_TYPE>
  */
 public interface INode<CONTEXT_TYPE> {
-	public CONTEXT_TYPE jump(CONTEXT_TYPE context);
+	CONTEXT_TYPE jump(CONTEXT_TYPE context);
 }

@@ -8,7 +8,7 @@ package pt.mystuff.decision.core;
  * store its specific logic to be executed. <br>
  * -->Each node also has a name.
  * 
- * @author Márcio Neves
+ * @author MÃ¡rcio Neves
  * 
  * @param <ANSWER_TYPE>
  * @param <CONTEXT_TYPE>

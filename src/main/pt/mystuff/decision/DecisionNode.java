@@ -10,12 +10,12 @@ import pt.mystuff.decision.core.AbstractNode;
  * the return value of its own logic function. Its jump function calls
  * recursively the resolved node jump function.
  * 
- * @author Márcio Neves
+ * @author MÃ¡rcio Neves
  * 
  * @param <ANSWER_TYPE>
  * @param <CONTEXT_TYPE>
  */
-public class DecisionNode<ANSWER_TYPE, CONTEXT_TYPE> extends AbstractNode<ANSWER_TYPE, CONTEXT_TYPE> { 
+public class DecisionNode<ANSWER_TYPE, CONTEXT_TYPE> extends AbstractNode<ANSWER_TYPE, CONTEXT_TYPE> {
 	
 	public DecisionNode(String name) {
 		super(name);
@@ -31,7 +31,7 @@ public class DecisionNode<ANSWER_TYPE, CONTEXT_TYPE> extends AbstractNode<ANSWER
 	public CONTEXT_TYPE jump(CONTEXT_TYPE context) {
 		context = super.jump(context);
 		
-		Object s = null; 
+		Object s;
 		try {
 			if ((s = this.getLogic().execute(context)) != null)
 				links.get(s).jump(context);

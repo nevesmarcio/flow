@@ -7,7 +7,7 @@ import pt.mystuff.decision.core.AbstractNode;
  * not recursively call other nodes jump function. This node does not support
  * links to other nodes.
  * 
- * @author Márcio Neves
+ * @author MÃ¡rcio Neves
  * 
  * @param <ANSWER_TYPE>
  * @param <CONTEXT_TYPE>

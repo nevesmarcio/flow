@@ -2,12 +2,12 @@ package pt.mystuff;
 
 import java.util.Random;
 
-import pt.mystuff.decision.DecisionNode;
 import pt.mystuff.decision.LeafNode;
-import pt.mystuff.decision.core.AbstractContext;
 import pt.mystuff.decision.core.ICommand;
+import pt.mystuff.decision.DecisionNode;
+import pt.mystuff.decision.core.AbstractContext;
 
-public class TestCase {
+public class TestCase1 {
 
 	
 	
@@ -93,16 +93,16 @@ public class TestCase {
 		AbstractContext ctx;
 		node1.jump(ctx = new AbstractContext() {
 			private String coolStuff;
-			
+
 			// fluent interface
 			public AbstractContext setCoolStuff(String coolStuff) {
 				this.coolStuff = coolStuff;
 				return this;
 			}
-			
+
 			@Override
 			public String toString() {
-				return super.toString() + coolStuff;
+				return coolStuff + " | super=" + super.toString();
 			}
 		}.setCoolStuff("cooL!"));
 		System.out.println("------------------------");
