@@ -1,6 +1,8 @@
 package pt.mystuff.decision;
 
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import pt.mystuff.decision.core.AbstractNode;
 
@@ -9,40 +11,42 @@ import pt.mystuff.decision.core.AbstractNode;
  * Specific implementation of a node that navigates out of itself, according to
  * the return value of its own logic function. Its jump function calls
  * recursively the resolved node jump function.
- * 
- * @author Márcio Neves
- * 
+ *
  * @param <ANSWER_TYPE>
  * @param <CONTEXT_TYPE>
+ * @author Márcio Neves
  */
 public class DecisionNode<ANSWER_TYPE, CONTEXT_TYPE> extends AbstractNode<ANSWER_TYPE, CONTEXT_TYPE> {
-	
-	public DecisionNode(String name) {
-		super(name);
-	}
+    private static Logger LOGGER = Logger.getLogger(DecisionNode.class.getName());
 
-	private HashMap<ANSWER_TYPE, AbstractNode<?, CONTEXT_TYPE>> links = new HashMap<>(); // answer/ node
+    public DecisionNode(String name) {
+        super(name);
+    }
 
-	public void link(ANSWER_TYPE answer, AbstractNode<?, CONTEXT_TYPE> node) {
-		this.links.put(answer, node);
-	}
+    private HashMap<ANSWER_TYPE, AbstractNode<?, CONTEXT_TYPE>> links = new HashMap<>(); // answer/ node
 
-	@Override
-	public CONTEXT_TYPE jump(CONTEXT_TYPE context) {
-		context = super.jump(context);
-		
-		Object s;
-		try {
-			if ((s = this.getLogic().execute(context)) != null)
-				links.get(s).jump(context);
-			else
-				System.out.println("No more jumps!");
-		} catch (Exception e) {
-			System.out.println("Failed to jump!");
-			e.printStackTrace();
-		}
-		return context;
-	}
+    public void link(ANSWER_TYPE answer, AbstractNode<?, CONTEXT_TYPE> node) {
+        this.links.put(answer, node);
+    }
 
-	
+    @Override
+    public CONTEXT_TYPE jump(CONTEXT_TYPE context) {
+        context = super.jump(context);
+
+        ANSWER_TYPE s;
+        try {
+            if ((s = this.getLogic().execute(context)) == null) {
+                if (LOGGER.isLoggable(Level.INFO)) LOGGER.info("no logic block => leaf node - no more jumps!");
+            } else if (!links.containsKey(s)) {
+                if (LOGGER.isLoggable(Level.INFO)) LOGGER.info("no links => leaf node - no more jumps!");
+            } else {
+                links.get(s).jump(context);
+            }
+        } catch (Exception e) {
+            if (LOGGER.isLoggable(Level.SEVERE)) LOGGER.log(Level.SEVERE, "Failed to jump!", e);
+        }
+        return context;
+    }
+
+
 }

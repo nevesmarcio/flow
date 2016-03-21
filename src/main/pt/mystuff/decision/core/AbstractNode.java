@@ -1,5 +1,8 @@
 package pt.mystuff.decision.core;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * This abstract class is the basic structure of a node: <br>
  * -->It implements the INode interface to guarantee that the node has a
@@ -7,40 +10,41 @@ package pt.mystuff.decision.core;
  * -->It is composed by a ICommand object that guarantees that each node can
  * store its specific logic to be executed. <br>
  * -->Each node also has a name.
- * 
- * @author Márcio Neves
- * 
+ *
  * @param <ANSWER_TYPE>
  * @param <CONTEXT_TYPE>
+ * @author Márcio Neves
  */
 public abstract class AbstractNode<ANSWER_TYPE, CONTEXT_TYPE> implements INode<CONTEXT_TYPE> {
-	private String name;
-	private ICommand<ANSWER_TYPE, CONTEXT_TYPE> logic;
+    private static Logger LOGGER = Logger.getLogger(AbstractNode.class.getName());
 
-	public ICommand<ANSWER_TYPE, CONTEXT_TYPE> getLogic() {
-		return logic;
-	}
+    private String name;
+    private ICommand<ANSWER_TYPE, CONTEXT_TYPE> logic;
 
-	public void setLogic(ICommand<ANSWER_TYPE, CONTEXT_TYPE> logic) {
-		this.logic = logic;
-	}
+    public ICommand<ANSWER_TYPE, CONTEXT_TYPE> getLogic() {
+        return logic;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setLogic(ICommand<ANSWER_TYPE, CONTEXT_TYPE> logic) {
+        this.logic = logic;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public AbstractNode(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	@Override
-	public CONTEXT_TYPE jump(CONTEXT_TYPE context) {
-		System.out.println("name: " + this.getName());
-		return context;
-	}
+    public AbstractNode(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public CONTEXT_TYPE jump(CONTEXT_TYPE context) {
+        if (LOGGER.isLoggable(Level.FINE)) LOGGER.fine("name: " + this.getName());
+        return context;
+    }
 
 }

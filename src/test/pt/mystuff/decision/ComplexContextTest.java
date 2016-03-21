@@ -1,14 +1,15 @@
-package pt.mystuff;
+package pt.mystuff.decision;
 
-import pt.mystuff.decision.DecisionNode;
+import org.junit.Test;
 
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.logging.Logger;
 
-public class TestCase3 {
-    /**
-     * @param args
-     */
-    public static void main(String[] args) {
+public class ComplexContextTest {
+    private static Logger LOGGER = Logger.getLogger(FiveNodeTest.class.getName());
+
+    @Test
+    public void arrayOfAtomicLongs() {
         AtomicLong atomicLongA = new AtomicLong();
         AtomicLong atomicLongB = new AtomicLong();
         AtomicLong atomicLongC = new AtomicLong();
@@ -26,13 +27,13 @@ public class TestCase3 {
 
         // END NODE - final node :: no decision/ //
         end.setLogic(context -> {
-            System.out.println("context: " + context.toString());
+            LOGGER.info("context: " + context.toString());
             return null;
         });
 
         // kickoff //
         start.jump(new AtomicLong[]{atomicLongA, atomicLongB, atomicLongC});
-        System.out.println("------------------------");
+        LOGGER.info("------------------------");
 
     }
 
