@@ -7,9 +7,12 @@ import pt.mystuff.decision.core.ICommand;
 import java.util.Random;
 import java.util.logging.Logger;
 
-public class FiveNodeTest {
+/**
+ * Not really a test case - used it to develop the lib and try out some graphs
+ */
+public class LibWorkbench {
 
-    private static Logger LOGGER = Logger.getLogger(FiveNodeTest.class.getName());
+    private static Logger LOGGER = Logger.getLogger(LibWorkbench.class.getName());
 
     @Test
     public void dummy() {
