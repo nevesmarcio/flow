@@ -10,9 +10,9 @@ import java.util.logging.Logger;
 /**
  * Not really a test case - used it to develop the lib and try out some graphs
  */
-public class LibWorkbench {
+public class FlowWorkbench {
 
-    private static Logger LOGGER = Logger.getLogger(LibWorkbench.class.getName());
+    private static Logger LOGGER = Logger.getLogger(FlowWorkbench.class.getName());
 
     @Test
     public void dummy() {

@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
 public class ComplexContextTest {
-    private static Logger LOGGER = Logger.getLogger(LibWorkbench.class.getName());
+    private static Logger LOGGER = Logger.getLogger(ComplexContextTest.class.getName());
 
     @Test
     public void arrayOfAtomicLongs() {
