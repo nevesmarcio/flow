@@ -1,6 +1,6 @@
-package pt.mystuff.decision;
+package pt.marcioneves.decision;
 
-import pt.mystuff.decision.core.AbstractNode;
+import pt.marcioneves.decision.core.AbstractNode;
 
 /**
  * Specific implementation of a note that ends a flow. Its jump function does

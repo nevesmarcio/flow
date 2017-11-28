@@ -1,4 +1,4 @@
-package pt.mystuff.decision.core;
+package pt.marcioneves.decision.core;
 
 /**
  * This interface allows to pass a command to a node. Each node implementation

@@ -1,8 +1,8 @@
-package pt.mystuff.decision;
+package pt.marcioneves.decision;
 
 import org.junit.Assert;
 import org.junit.Test;
-import pt.mystuff.decision.core.AbstractContext;
+import pt.marcioneves.decision.core.AbstractContext;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

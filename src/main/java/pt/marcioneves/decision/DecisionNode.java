@@ -1,10 +1,10 @@
-package pt.mystuff.decision;
+package pt.marcioneves.decision;
 
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import pt.mystuff.decision.core.AbstractNode;
+import pt.marcioneves.decision.core.AbstractNode;
 
 
 /**

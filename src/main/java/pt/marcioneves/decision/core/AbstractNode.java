@@ -1,4 +1,4 @@
-package pt.mystuff.decision.core;
+package pt.marcioneves.decision.core;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
