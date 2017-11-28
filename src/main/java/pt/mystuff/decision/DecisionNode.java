@@ -17,7 +17,7 @@ import pt.mystuff.decision.core.AbstractNode;
  * @author Márcio Neves
  */
 public class DecisionNode<ANSWER_TYPE, CONTEXT_TYPE> extends AbstractNode<ANSWER_TYPE, CONTEXT_TYPE> {
-    private static Logger LOGGER = Logger.getLogger(DecisionNode.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(DecisionNode.class.getName());
 
     public DecisionNode(String name) {
         super(name);
@@ -35,15 +35,22 @@ public class DecisionNode<ANSWER_TYPE, CONTEXT_TYPE> extends AbstractNode<ANSWER
 
         ANSWER_TYPE s;
         try {
-            if ((s = this.getLogic().execute(context)) == null) {
-                if (LOGGER.isLoggable(Level.INFO)) LOGGER.info("logic block returning null => leaf node - no more jumps!");
+            s = this.getLogic().execute(context);
+            if (s == null) {
+                if (LOGGER.isLoggable(Level.INFO)) {
+                    LOGGER.info("logic block returning null => leaf node - no more jumps!");
+                }
             } else if (!links.containsKey(s)) {
-                if (LOGGER.isLoggable(Level.INFO)) LOGGER.info("no links => leaf node - no more jumps!");
+                if (LOGGER.isLoggable(Level.INFO)) {
+                    LOGGER.info("no links => leaf node - no more jumps!");
+                }
             } else {
                 links.get(s).jump(context);
             }
         } catch (Exception e) {
-            if (LOGGER.isLoggable(Level.SEVERE)) LOGGER.log(Level.SEVERE, "Failed to jump!", e);
+            if (LOGGER.isLoggable(Level.SEVERE)) {
+                LOGGER.log(Level.SEVERE, "Failed to jump!", e);
+            }
         }
         return context;
     }
