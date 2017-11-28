@@ -1,4 +1,4 @@
-package pt.marcioneves.decision.core;
+package pt.flow.decision.core;
 
 /**
  * This interface allows to pass a command to a node. Each node implementation

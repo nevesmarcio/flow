@@ -1,4 +1,4 @@
-package pt.marcioneves.decision.core;
+package pt.flow.decision.core;
 
 /**
  * This class represents the context to be passed across node navigation

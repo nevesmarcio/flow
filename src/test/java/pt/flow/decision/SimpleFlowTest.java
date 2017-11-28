@@ -1,8 +1,8 @@
-package pt.marcioneves.decision;
+package pt.flow.decision;
 
 import org.junit.Assert;
 import org.junit.Test;
-import pt.marcioneves.decision.core.AbstractContext;
+import pt.flow.decision.core.AbstractContext;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

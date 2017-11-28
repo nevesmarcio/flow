@@ -1,4 +1,4 @@
-package pt.marcioneves.decision.core;
+package pt.flow.decision.core;
 
 /**
  * This interface states that a node needs to have a jump strategy. While

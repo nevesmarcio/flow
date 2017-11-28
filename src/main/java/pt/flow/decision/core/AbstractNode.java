@@ -1,4 +1,4 @@
-package pt.marcioneves.decision.core;
+package pt.flow.decision.core;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

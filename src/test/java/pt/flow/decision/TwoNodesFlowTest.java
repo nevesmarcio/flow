@@ -1,4 +1,4 @@
-package pt.marcioneves.decision;
+package pt.flow.decision;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
