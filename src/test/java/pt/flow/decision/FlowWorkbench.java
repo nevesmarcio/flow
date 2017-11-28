@@ -1,8 +1,8 @@
-package pt.mystuff.decision;
+package pt.flow.decision;
 
 import org.junit.Test;
-import pt.mystuff.decision.core.AbstractContext;
-import pt.mystuff.decision.core.ICommand;
+import pt.flow.decision.core.AbstractContext;
+import pt.flow.decision.core.ICommand;
 
 import java.util.Random;
 import java.util.logging.Logger;

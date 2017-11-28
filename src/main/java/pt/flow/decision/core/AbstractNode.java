@@ -1,4 +1,4 @@
-package pt.mystuff.decision.core;
+package pt.flow.decision.core;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,10 +16,14 @@ import java.util.logging.Logger;
  * @author Márcio Neves
  */
 public abstract class AbstractNode<ANSWER_TYPE, CONTEXT_TYPE> implements INode<CONTEXT_TYPE> {
-    private static Logger LOGGER = Logger.getLogger(AbstractNode.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(AbstractNode.class.getName());
 
     private String name;
     private ICommand<ANSWER_TYPE, CONTEXT_TYPE> logic;
+
+    public AbstractNode(String name) {
+        this.name = name;
+    }
 
     public ICommand<ANSWER_TYPE, CONTEXT_TYPE> getLogic() {
         return logic;
@@ -37,13 +41,11 @@ public abstract class AbstractNode<ANSWER_TYPE, CONTEXT_TYPE> implements INode<C
         this.name = name;
     }
 
-    public AbstractNode(String name) {
-        this.name = name;
-    }
-
     @Override
     public CONTEXT_TYPE jump(CONTEXT_TYPE context) {
-        if (LOGGER.isLoggable(Level.FINE)) LOGGER.fine("name: " + this.getName());
+        if (LOGGER.isLoggable(Level.FINE)) {
+            LOGGER.fine("name: " + this.getName());
+        }
         return context;
     }
 
