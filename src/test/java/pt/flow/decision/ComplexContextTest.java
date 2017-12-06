@@ -2,16 +2,17 @@ package pt.flow.decision;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.logging.Logger;
 
 public class ComplexContextTest {
-    private static Logger LOGGER = Logger.getLogger(ComplexContextTest.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(ComplexContextTest.class);
 
     @Test
     public void arrayOfAtomicLongs() {
-        LOGGER.info("arrayOfAtomicLongs");
+        LOG.info("arrayOfAtomicLongs");
 
         AtomicLong atomicLongA = new AtomicLong();
         AtomicLong atomicLongB = new AtomicLong();
@@ -32,7 +33,7 @@ public class ComplexContextTest {
         end.setLogic(context -> {
             int i = 0;
             for (AtomicLong al : context) {
-                LOGGER.info("al[" + i++ + "]:" + al.get());
+                LOG.info("al[" + i++ + "]:" + al.get());
             }
             return null;
         });

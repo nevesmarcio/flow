@@ -3,18 +3,17 @@ package pt.flow.decision;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TwoNodesFlowTest {
-
-    private static Logger LOGGER = Logger.getLogger(TwoNodesFlowTest.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(ComplexContextTest.class);
 
     private static DecisionNode<Boolean, Boolean> start;
 
     @BeforeClass
     public static void setupFlow() {
-        LOGGER.info("SetupFlow");
+        LOG.info("SetupFlow");
 
         // NODE declaration
         start = new DecisionNode<>("start_node_name");
@@ -33,14 +32,14 @@ public class TwoNodesFlowTest {
 
     @Test
     public void truePath() {
-        LOGGER.info("SimpleTest");
+        LOG.info("SimpleTest");
         // kickoff //
         Assert.assertEquals(start.jump(true), true);
     }
 
     @Test
     public void falsePath() {
-        LOGGER.info("SimpleTestAltPath");
+        LOG.info("SimpleTestAltPath");
         // kickoff //
         Assert.assertEquals(start.jump(false), false);
     }

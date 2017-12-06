@@ -5,8 +5,8 @@ package pt.flow.decision.core;
  * decides when to execute this command, but typically this is executed on the
  * jump method before applying the exit strategy of the current node
  *
- * @param <ANSWER_TYPE>
- * @param <CONTEXT_TYPE>
+ * @param <ANSWER_TYPE>  Response type
+ * @param <CONTEXT_TYPE> Context type to execute the logic on
  * @author Márcio Neves
  */
 public interface ICommand<ANSWER_TYPE, CONTEXT_TYPE> {
