@@ -1,18 +1,18 @@
 package pt.flow.decision;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pt.flow.decision.core.AbstractContext;
 import pt.flow.decision.core.ICommand;
 
 import java.util.Random;
-import java.util.logging.Logger;
 
 /**
  * Not really a test case - used it to develop the lib and try out some graphs
  */
 public class FlowWorkbench {
-
-    private static Logger LOGGER = Logger.getLogger(FlowWorkbench.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(ComplexContextTest.class);
 
     @Test
     public void dummy() {
@@ -21,7 +21,7 @@ public class FlowWorkbench {
         DecisionNode<Integer, AbstractContext> node2 = new DecisionNode<Integer, AbstractContext>("node2_name");
         DecisionNode<Boolean, AbstractContext> node3 = new DecisionNode<Boolean, AbstractContext>("node3_name");
         DecisionNode<Long, AbstractContext> a_new_node = new DecisionNode<Long, AbstractContext>("a_new_node_name");
-        LeafNode<Void, AbstractContext> terminal_node = new LeafNode<>("terminal_node_name");
+        LeafNode<AbstractContext> terminal_node = new LeafNode<>("terminal_node_name");
 
         // /DECISION NODE1 - start node :: rock on
         node1.setLogic(new ICommand<String, AbstractContext>() {
@@ -29,7 +29,7 @@ public class FlowWorkbench {
             @Override
             public String execute(AbstractContext context) {
                 boolean calc = new Random(System.nanoTime()).nextBoolean();
-                LOGGER.info("**node1_decision_process**: " + calc);
+                LOG.info("**node1_decision_process**: " + calc);
                 return calc ? "ans_node2" : "ans_node3";
             }
         });
@@ -41,7 +41,7 @@ public class FlowWorkbench {
 
             @Override
             public Integer execute(AbstractContext context) {
-                LOGGER.info("**node2_decision_process**");
+                LOG.info("**node2_decision_process**");
                 return 0;
             }
         });
@@ -52,7 +52,7 @@ public class FlowWorkbench {
 
             @Override
             public Boolean execute(AbstractContext context) {
-                LOGGER.info("**node3_decision_process**");
+                LOG.info("**node3_decision_process**");
                 return true;
             }
         });
@@ -64,7 +64,7 @@ public class FlowWorkbench {
             @Override
             public Long execute(AbstractContext context) {
                 Long lng = System.nanoTime() % 4L + 1;
-                LOGGER.info("**a_new_node_decision_process** l: " + lng);
+                LOG.info("**a_new_node_decision_process** l: " + lng);
                 switch (lng.intValue()) {
                     case 1:
                     case 2:
@@ -85,7 +85,7 @@ public class FlowWorkbench {
         terminal_node.setLogic(new ICommand<Void, AbstractContext>() {
             @Override
             public Void execute(AbstractContext context) {
-                LOGGER.info("**terminal_node_decision_process**");
+                LOG.info("**terminal_node_decision_process**");
                 return null;
             }
         });
@@ -106,22 +106,21 @@ public class FlowWorkbench {
                 return coolStuff + " | super=" + super.toString();
             }
         }.setCoolStuff("cooL!"));
-        LOGGER.info("------------------------");
-
+        LOG.info("------------------------");
 
 
         // I can start at any point in the chain
         // kickoff 2 //
         node3.jump(ctx);
-        LOGGER.info("------------------------");
+        LOG.info("------------------------");
 
         // kickoff 3 //
         a_new_node.jump(ctx);
-        LOGGER.info("------------------------");
+        LOG.info("------------------------");
 
         // kickoff 4 //
         terminal_node.jump(ctx);
-        LOGGER.info("------------------------");
+        LOG.info("------------------------");
     }
 
 

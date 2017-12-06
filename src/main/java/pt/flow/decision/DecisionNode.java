@@ -1,10 +1,12 @@
 package pt.flow.decision;
 
-import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pt.flow.decision.core.AbstractNode;
+import pt.flow.decision.core.ICommand;
+
+import java.util.Collections;
+import java.util.HashMap;
 
 
 /**
@@ -12,21 +14,32 @@ import pt.flow.decision.core.AbstractNode;
  * the return value of its own logic function. Its jump function calls
  * recursively the resolved node jump function.
  *
- * @param <ANSWER_TYPE>
- * @param <CONTEXT_TYPE>
+ * @param <ANSWER_TYPE>  Response type
+ * @param <CONTEXT_TYPE> Context type to execute the logic on
  * @author Márcio Neves
  */
 public class DecisionNode<ANSWER_TYPE, CONTEXT_TYPE> extends AbstractNode<ANSWER_TYPE, CONTEXT_TYPE> {
-    private static final Logger LOGGER = Logger.getLogger(DecisionNode.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(DecisionNode.class);
+    private HashMap<ANSWER_TYPE, AbstractNode<?, CONTEXT_TYPE>> links = new HashMap<>(); // answer/ node
 
     public DecisionNode(String name) {
         super(name);
     }
 
-    private HashMap<ANSWER_TYPE, AbstractNode<?, CONTEXT_TYPE>> links = new HashMap<>(); // answer/ node
+    public static <ANSWER_TYPE, CONTEXT_TYPE> DecisionNode<ANSWER_TYPE, CONTEXT_TYPE>
+    create(String name, Class<ANSWER_TYPE> answer, Class<CONTEXT_TYPE> input) {
+        return new DecisionNode<>(name);
+    }
 
-    public void link(ANSWER_TYPE answer, AbstractNode<?, CONTEXT_TYPE> node) {
+    @Override
+    public DecisionNode<ANSWER_TYPE, CONTEXT_TYPE> setLogic(ICommand<ANSWER_TYPE, CONTEXT_TYPE> logic) {
+        this.logic = logic;
+        return this;
+    }
+
+    public DecisionNode<ANSWER_TYPE, CONTEXT_TYPE> link(ANSWER_TYPE answer, AbstractNode<?, CONTEXT_TYPE> node) {
         this.links.put(answer, node);
+        return this;
     }
 
     @Override
@@ -37,23 +50,28 @@ public class DecisionNode<ANSWER_TYPE, CONTEXT_TYPE> extends AbstractNode<ANSWER
         try {
             s = this.getLogic().execute(context);
             if (s == null) {
-                if (LOGGER.isLoggable(Level.INFO)) {
-                    LOGGER.info("logic block returning null => leaf node - no more jumps!");
-                }
+                LOG.debug(this.getName() + ": logic block returning null => leaf node - no more jumps!");
             } else if (!links.containsKey(s)) {
-                if (LOGGER.isLoggable(Level.INFO)) {
-                    LOGGER.info("no links => leaf node - no more jumps!");
-                }
+                LOG.debug(this.getName() + ": no links => leaf node - no more jumps!");
             } else {
                 links.get(s).jump(context);
             }
         } catch (Exception e) {
-            if (LOGGER.isLoggable(Level.SEVERE)) {
-                LOGGER.log(Level.SEVERE, "Failed to jump!", e);
-            }
+            LOG.warn(this.getName() + ": Failed to jump!", e);
         }
         return context;
     }
 
+    @Override
+    public void print(int level) {
+        String prefix = String.join("|", Collections.nCopies(level, "\t")) + "└ ";
+        System.out.println(prefix + getName());
 
+        ++level;
+        prefix = String.join("|", Collections.nCopies(level, "\t")) + "├ ";
+        for (ANSWER_TYPE key : links.keySet()) {
+            System.out.println(prefix + "If response (" + key.getClass().getSimpleName() + ") is  " + key.toString());
+            links.get(key).print(level + 1);
+        }
+    }
 }
