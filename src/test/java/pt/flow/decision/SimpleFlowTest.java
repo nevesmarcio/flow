@@ -19,47 +19,48 @@ public class SimpleFlowTest {
     @Test(expected = StackOverflowError.class)
     public void stackOverflow() {
         // NODE declaration
-        DecisionNode<Boolean, AbstractContext> start = new DecisionNode<>("start_node_name");
-        DecisionNode<Boolean, AbstractContext> middle_1 = new DecisionNode<>("middle_node_1_name");
-        DecisionNode<Boolean, AbstractContext> middle_2 = new DecisionNode<>("middle_node_2_name");
-        DecisionNode<Void, AbstractContext> end = new DecisionNode<>("end_node_name");
-
         // START NODE - start node :: rock on/ //
-        start.setLogic(context -> {
+        DecisionNode<Boolean, AbstractContext> start = DecisionNode.<Boolean, AbstractContext>create("start_node_name").setLogic(context -> {
             LOG.info("start here");
             return true;
         });
-        start.link(true, middle_1);// for the purpose of this test I will link the start node to the end node on both options (true and false)
 
-        middle_1.setLogic(context -> {
-            // some reflection
-            Method setter = null, getter = null;
-            try {
-                setter = context.getClass().getMethod("setA", long.class);
-                getter = context.getClass().getMethod("getA");
-                long l = (long) getter.invoke(context);
-                setter.invoke(context, l + 1);
-                if (LOG.isTraceEnabled()) LOG.trace(":" + (long) getter.invoke(context));
-            } catch (NoSuchMethodException e) {
-                Assert.fail(e.getMessage());
-            } catch (IllegalAccessException e) {
-                Assert.fail(e.getMessage());
-            } catch (InvocationTargetException e) {
-                Assert.fail(e.getMessage());
-            }
+        // MIDDLE NODE //
+        DecisionNode<Boolean, AbstractContext> middle_1 = DecisionNode.<Boolean, AbstractContext>create("middle_node_1_name")
+                .setLogic(context -> {
+                    // some reflection
+                    Method setter = null, getter = null;
+                    try {
+                        setter = context.getClass().getMethod("setA", long.class);
+                        getter = context.getClass().getMethod("getA");
+                        long l = (long) getter.invoke(context);
+                        setter.invoke(context, l + 1);
+                        if (LOG.isTraceEnabled()) LOG.trace(":" + (long) getter.invoke(context));
+                    } catch (NoSuchMethodException e) {
+                        Assert.fail(e.getMessage());
+                    } catch (IllegalAccessException e) {
+                        Assert.fail(e.getMessage());
+                    } catch (InvocationTargetException e) {
+                        Assert.fail(e.getMessage());
+                    }
 
-            return true;
-        });
-        middle_1.link(true, middle_2);
+                    return true;
+                });
 
-        middle_2.setLogic(context1 -> true);
-        middle_2.link(true, middle_1);
+        // MIDDLE NODE //
+        DecisionNode<Boolean, AbstractContext> middle_2 = DecisionNode.<Boolean, AbstractContext>create("middle_node_2_name")
+                .setLogic(context1 -> true);
 
-        // END NODE - final node :: no decision/ //
-        end.setLogic(context -> {
+        // END NODE - final node :: no decision - equivalent to LeafNode/ //
+        DecisionNode<Void, AbstractContext> end = DecisionNode.<Void, AbstractContext>create("end_node_name").setLogic(context -> {
             LOG.info("end here");
             return null;
         });
+
+        // Linking - Graph creation
+        start.link(true, middle_1);// for the purpose of this test I will link the start node to the end node on both options (true and false)
+        middle_1.link(true, middle_2);
+        middle_2.link(true, middle_1);
 
         // kickoff //
         start.jump(new AbstractContext() {

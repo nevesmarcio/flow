@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Not really a test case - used it to develop the lib and try out some graphs
  */
-public class FluentCreationTest {
+public class FluentCreationWorkbench {
     private static final Logger LOG = LoggerFactory.getLogger(ComplexContextTest.class);
 
     @Test
