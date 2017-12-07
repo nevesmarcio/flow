@@ -14,13 +14,13 @@ public class FluentCreationTest {
     @Test
     public void dummy() {
 
-        DecisionNode<Void, Long> printResult = DecisionNode.create("print", Void.class, Long.class)
+        LeafNode<Long> printResult = LeafNode.<Long>create("print")
                 .setLogic(context -> {
                     LOG.info(context.toString());
                     return null;
                 });
 
-        DecisionNode<Boolean, Long> node = DecisionNode.create("checkValue", Boolean.class, Long.class)
+        DecisionNode<Boolean, Long> node = DecisionNode.<Boolean, Long>create("checkValue")
                 .setLogic(context -> context > 0L)
                 .link(Boolean.TRUE, printResult)
                 .link(Boolean.FALSE, printResult);

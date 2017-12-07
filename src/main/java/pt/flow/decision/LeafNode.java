@@ -19,7 +19,7 @@ public class LeafNode<CONTEXT_TYPE> extends AbstractNode<Void, CONTEXT_TYPE> {
         super(name);
     }
 
-    public static <CONTEXT_TYPE> LeafNode<CONTEXT_TYPE> create(String name, Class<CONTEXT_TYPE> input) {
+    public static <CONTEXT_TYPE> LeafNode<CONTEXT_TYPE> create(String name) {
         return new LeafNode<>(name);
     }
 

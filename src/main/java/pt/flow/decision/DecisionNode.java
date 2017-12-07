@@ -27,7 +27,7 @@ public class DecisionNode<ANSWER_TYPE, CONTEXT_TYPE> extends AbstractNode<ANSWER
     }
 
     public static <ANSWER_TYPE, CONTEXT_TYPE> DecisionNode<ANSWER_TYPE, CONTEXT_TYPE>
-    create(String name, Class<ANSWER_TYPE> answer, Class<CONTEXT_TYPE> input) {
+    create(String name) {
         return new DecisionNode<>(name);
     }
 
