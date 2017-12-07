@@ -2,17 +2,15 @@ package pt.flow.decision;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pt.flow.decision.core.AbstractContext;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class SimpleFlowTest {
-
-
-    private static Logger LOGGER = Logger.getLogger(SimpleFlowTest.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(ComplexContextTest.class);
 
     private void testMultipleParameters(Object... a) {
 
@@ -28,7 +26,7 @@ public class SimpleFlowTest {
 
         // START NODE - start node :: rock on/ //
         start.setLogic(context -> {
-            LOGGER.info("start here");
+            LOG.info("start here");
             return true;
         });
         start.link(true, middle_1);// for the purpose of this test I will link the start node to the end node on both options (true and false)
@@ -41,7 +39,7 @@ public class SimpleFlowTest {
                 getter = context.getClass().getMethod("getA");
                 long l = (long) getter.invoke(context);
                 setter.invoke(context, l + 1);
-                if (LOGGER.isLoggable(Level.FINEST)) LOGGER.finest(":" + (long) getter.invoke(context));
+                if (LOG.isTraceEnabled()) LOG.trace(":" + (long) getter.invoke(context));
             } catch (NoSuchMethodException e) {
                 Assert.fail(e.getMessage());
             } catch (IllegalAccessException e) {
@@ -59,7 +57,7 @@ public class SimpleFlowTest {
 
         // END NODE - final node :: no decision/ //
         end.setLogic(context -> {
-            LOGGER.info("end here");
+            LOG.info("end here");
             return null;
         });
 
@@ -67,12 +65,12 @@ public class SimpleFlowTest {
         start.jump(new AbstractContext() {
             private long a;
 
-            public void setA(long a) {
-                this.a = a;
-            }
-
             public long getA() {
                 return a;
+            }
+
+            public void setA(long a) {
+                this.a = a;
             }
         });
 

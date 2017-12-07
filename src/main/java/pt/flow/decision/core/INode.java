@@ -5,7 +5,7 @@ package pt.flow.decision.core;
  * navigating on a graph of nodes, this is the function that jumps out from the
  * current node
  *
- * @param <CONTEXT_TYPE>
+ * @param <CONTEXT_TYPE> Context type to execute the logic on
  * @author Márcio Neves
  */
 public interface INode<CONTEXT_TYPE> {
