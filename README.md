@@ -2,7 +2,7 @@
 
 This library is designed to fight against implementations of big "decision trees" and deep IF-THEN-ELSE structures.
 For me personally it is very difficult (close to impossible) to maintain a "flow" state of mind for long periods of time.
-The library facilitates the creation of a coding stype that approaches desition structures as a graph design exercise:
+The library facilitates the creation of a coding style that approaches decision structures as a graph design exercise:
 - The node is the Decision Block
 - The edges are the possible values
 
