@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import pt.flow.decision.core.AbstractNode;
 import pt.flow.decision.core.ICommand;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -18,6 +19,7 @@ import java.util.Map;
  */
 public class LeafNode<CONTEXT_TYPE> extends AbstractNode<Void, CONTEXT_TYPE> {
     private static final Logger LOG = LoggerFactory.getLogger(LeafNode.class);
+
     public LeafNode(String name) {
         super(name);
     }
@@ -40,7 +42,7 @@ public class LeafNode<CONTEXT_TYPE> extends AbstractNode<Void, CONTEXT_TYPE> {
     }
 
     @Override
-    public Map<Pair<String,Class>, AbstractNode<?, CONTEXT_TYPE>> getLinkedNodes() {
-        return null;
+    public Map<Pair<String, Class>, AbstractNode<?, CONTEXT_TYPE>> getLinkedNodes() {
+        return new HashMap<>(0);
     }
 }

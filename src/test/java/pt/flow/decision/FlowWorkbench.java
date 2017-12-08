@@ -3,6 +3,7 @@ package pt.flow.decision;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pt.flow.Flow;
 import pt.flow.decision.core.AbstractContext;
 import pt.flow.decision.core.ICommand;
 
@@ -121,6 +122,8 @@ public class FlowWorkbench {
         // kickoff 4 //
         terminal_node.jump(ctx);
         LOG.info("------------------------");
+
+        Flow.depthFirstSearch(node1);
     }
 
 

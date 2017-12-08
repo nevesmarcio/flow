@@ -66,4 +66,5 @@ public class FlowTest {
         LOG.info("---------------------");
         Flow.depthFirstSearch(middle_2_odd);
     }
+
 }
