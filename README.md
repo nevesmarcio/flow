@@ -10,3 +10,5 @@ This coding style has the following advantages:
 1) the code produced is very easy to test (decision blocks are easily mockable)
 2) logging of which path was activated in runtime makes it really easy to understand what is happening
 3) introducing new conditions/ new business logic is an exercise of identifying where in the graph one has to insert another node and its edges.
+
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6GFHDWAU234BA)
