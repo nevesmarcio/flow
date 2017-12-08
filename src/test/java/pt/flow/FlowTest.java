@@ -19,19 +19,19 @@ public class FlowTest {
     });
 
     // MIDDLE NODES - LAYER 1//
-    DecisionNode<Boolean, AbstractContext> middle_1 = DecisionNode.<Boolean, AbstractContext>create("middle_node_1_name")
+    DecisionNode<Integer, AbstractContext> middle_1 = DecisionNode.<Integer, AbstractContext>create("middle_node_1_name")
             .setLogic(context -> {
                 LOG.info("middle_node_1");
-                return new Random().nextBoolean();//whatever - it doesn't influence traversing - not even called;
+                return new Random().nextInt(4);//whatever - it doesn't influence traversing - not even called;
             });
 
     // MIDDLE NODES - LAYER 2//
-    DecisionNode<Boolean, AbstractContext> middle_2_true = DecisionNode.<Boolean, AbstractContext>create("middle_node_2_name_true-path")
+    DecisionNode<Boolean, AbstractContext> middle_2_odd = DecisionNode.<Boolean, AbstractContext>create("middle_node_2_name_odd-path")
             .setLogic(context1 -> {
                 LOG.info("middle_node_2_true");
                 return new Random().nextBoolean();//whatever - it doesn't influence traversing - not even called
             });
-    DecisionNode<Boolean, AbstractContext> middle_2_false = DecisionNode.<Boolean, AbstractContext>create("middle_node_2_name_false-path")
+    DecisionNode<Boolean, AbstractContext> middle_2_even = DecisionNode.<Boolean, AbstractContext>create("middle_node_2_name_even-path")
             .setLogic(context -> {
                 LOG.info("middle_node_2_false");
                 return new Random().nextBoolean();//whatever - it doesn't influence traversing - not even called
@@ -47,12 +47,14 @@ public class FlowTest {
     public void setUp() throws Exception {
         start.link(true, middle_1);
         start.link(false, middle_1);
-        middle_1.link(true, middle_2_true);
-        middle_1.link(false, middle_2_false);
-        middle_2_true.link(true, end);
-        middle_2_true.link(false, end);
-        middle_2_false.link(true, end);
-        middle_2_false.link(false, start);
+        middle_1.link(0, middle_2_even);
+        middle_1.link(1, middle_2_odd);
+        middle_1.link(2, middle_2_even);
+        middle_1.link(3, middle_2_odd);
+        middle_2_odd.link(true, end);
+        middle_2_odd.link(false, end);
+        middle_2_even.link(true, end);
+        middle_2_even.link(false, start);
 
     }
 
@@ -62,6 +64,6 @@ public class FlowTest {
         LOG.info("---------------------");
         Flow.depthFirstSearch(middle_1);
         LOG.info("---------------------");
-        Flow.depthFirstSearch(middle_2_true);
+        Flow.depthFirstSearch(middle_2_odd);
     }
 }
