@@ -1,12 +1,14 @@
 package pt.flow.decision;
 
+import org.javatuples.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pt.flow.decision.core.AbstractNode;
 import pt.flow.decision.core.ICommand;
 
-import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.function.BiConsumer;
 
 
 /**
@@ -63,15 +65,15 @@ public class DecisionNode<ANSWER_TYPE, CONTEXT_TYPE> extends AbstractNode<ANSWER
     }
 
     @Override
-    public void print(int level) {
-        String prefix = String.join("|", Collections.nCopies(level, "\t")) + "└ ";
-        System.out.println(prefix + getName());
+    public Map<Pair<String,Class>, AbstractNode<?, CONTEXT_TYPE>> getLinkedNodes() {
+        Map<Pair<String,Class>, AbstractNode<?, CONTEXT_TYPE>> linkedNodes = new HashMap<>(links.size());
+        links.forEach(new BiConsumer<ANSWER_TYPE, AbstractNode<?, CONTEXT_TYPE>>() {
+            @Override
+            public void accept(ANSWER_TYPE answer, AbstractNode<?, CONTEXT_TYPE> context) {
+                linkedNodes.put(Pair.with(answer.toString(), answer.getClass()), context);
+            }
+        });
 
-        ++level;
-        prefix = String.join("|", Collections.nCopies(level, "\t")) + "├ ";
-        for (ANSWER_TYPE key : links.keySet()) {
-            System.out.println(prefix + "If response (" + key.getClass().getSimpleName() + ") is  " + key.toString());
-            links.get(key).print(level + 1);
-        }
+        return linkedNodes;
     }
 }

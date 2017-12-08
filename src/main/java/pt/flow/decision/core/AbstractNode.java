@@ -3,8 +3,6 @@ package pt.flow.decision.core;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collections;
-
 /**
  * This abstract class is the basic structure of a node: <br>
  * -- It implements the INode interface to guarantee that the node has a
@@ -17,7 +15,7 @@ import java.util.Collections;
  * @param <CONTEXT_TYPE> Context type to execute the logic on
  * @author Márcio Neves
  */
-public abstract class AbstractNode<ANSWER_TYPE, CONTEXT_TYPE> implements INode<CONTEXT_TYPE> {
+public abstract class AbstractNode<ANSWER_TYPE, CONTEXT_TYPE> implements INode<CONTEXT_TYPE>, ITraversable {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractNode.class);
     private final String name;
     protected ICommand<ANSWER_TYPE, CONTEXT_TYPE> logic;
@@ -47,7 +45,4 @@ public abstract class AbstractNode<ANSWER_TYPE, CONTEXT_TYPE> implements INode<C
         return context;
     }
 
-    public void print(int level) {
-        System.out.println(String.join("|", Collections.nCopies(level, "\t")) + "└ " + getName());
-    }
 }
