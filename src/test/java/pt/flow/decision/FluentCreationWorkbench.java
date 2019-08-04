@@ -3,6 +3,7 @@ package pt.flow.decision;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pt.flow.Flow;
 
 
 /**
@@ -25,7 +26,7 @@ public class FluentCreationWorkbench {
                 .link(Boolean.TRUE, printResult)
                 .link(Boolean.FALSE, printResult);
 
-        node.print(0);
+        Flow.depthFirstSearch(node);
     }
 
 

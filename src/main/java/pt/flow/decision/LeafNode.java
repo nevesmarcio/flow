@@ -1,9 +1,13 @@
 package pt.flow.decision;
 
+import org.javatuples.Pair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pt.flow.decision.core.AbstractNode;
 import pt.flow.decision.core.ICommand;
 
-import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Specific implementation of a note that ends a flow. Its jump function does
@@ -14,6 +18,7 @@ import java.util.Collections;
  * @author Márcio Neves
  */
 public class LeafNode<CONTEXT_TYPE> extends AbstractNode<Void, CONTEXT_TYPE> {
+    private static final Logger LOG = LoggerFactory.getLogger(LeafNode.class);
 
     public LeafNode(String name) {
         super(name);
@@ -37,8 +42,7 @@ public class LeafNode<CONTEXT_TYPE> extends AbstractNode<Void, CONTEXT_TYPE> {
     }
 
     @Override
-    public void print(int level) {
-        String prefix = String.join("|", Collections.nCopies(level, "\t")) + "└ ";
-        System.out.println(prefix + getName());
+    public Map<Pair<String, Class>, AbstractNode<?, CONTEXT_TYPE>> getLinkedNodes() {
+        return new HashMap<>(0);
     }
 }

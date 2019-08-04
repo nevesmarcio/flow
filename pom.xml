@@ -9,9 +9,11 @@
 
     <properties>
         <java.version.range>[1.8,)</java.version.range>
+        <javatuples.version>1.2</javatuples.version>
+        <slf4j.version>1.7.25</slf4j.version>
+
         <junit.version>4.12</junit.version>
         <mockito.version>1.10.19</mockito.version>
-        <slf4j.version>1.7.25</slf4j.version>
         <logback.version>1.2.3</logback.version>
 
         <maven.javadoc.skip>true</maven.javadoc.skip>
@@ -36,6 +38,11 @@
     </build>
 
     <dependencies>
+        <dependency>
+            <groupId>org.javatuples</groupId>
+            <artifactId>javatuples</artifactId>
+            <version>${javatuples.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
